@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
         * {
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Comic Sans MS', 'Chalkboard SE', 'Mali', cursive, sans-serif;
             background-color: #e0f7fa;
@@ -20,27 +22,38 @@
             min-height: 100vh;
             justify-content: center;
         }
+
         h1 {
             color: #ff5722;
             font-size: 2.2rem;
-            text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(0, 0, 0, 0.1);
             margin-top: 5px;
             margin-bottom: 15px;
             animation: bounce 2s infinite;
         }
+
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
         }
+
         .game-container {
             background-color: white;
             border-radius: 20px;
             padding: 20px;
             width: 100%;
             max-width: 600px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             border: 4px solid #ffeb3b;
         }
+
         .question-box {
             background-color: #fff9c4;
             border-radius: 15px;
@@ -48,17 +61,20 @@
             margin-bottom: 20px;
             border: 3px dashed #ffc107;
         }
+
         .question {
             font-size: 3.5rem;
             color: #1976d2;
             margin: 0;
             line-height: 1;
         }
+
         .options {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
+
         .option-btn {
             background-color: #4caf50;
             color: white;
@@ -72,21 +88,25 @@
             box-shadow: 0 6px 0 #388e3c;
             text-transform: capitalize;
         }
+
         .option-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 9px 0 #388e3c;
             background-color: #66bb6a;
         }
+
         .option-btn:active {
             transform: translateY(3px);
             box-shadow: 0 3px 0 #388e3c;
         }
+
         .option-btn:disabled {
             background-color: #9e9e9e;
             box-shadow: 0 6px 0 #757575;
             cursor: not-allowed;
             transform: none;
         }
+
         .score-board {
             font-size: 1.4rem;
             color: #d81b60;
@@ -98,6 +118,7 @@
             border: 3px solid #f06292;
             font-weight: bold;
         }
+
         .feedback {
             font-size: 1.8rem;
             font-weight: bold;
@@ -108,14 +129,32 @@
             justify-content: center;
             animation: popIn 0.5s forwards;
         }
+
         @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            80% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            80% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-        .correct { color: #4caf50; }
-        .wrong { color: #f44336; }
-        
+
+        .correct {
+            color: #4caf50;
+        }
+
+        .wrong {
+            color: #f44336;
+        }
+
         #next-btn {
             background-color: #ff9800;
             color: white;
@@ -131,72 +170,154 @@
             transition: all 0.2s;
             font-weight: bold;
         }
+
         #next-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 9px 0 #f57c00;
             background-color: #ffb74d;
         }
+
         #next-btn:active {
             transform: translateY(3px);
             box-shadow: 0 3px 0 #f57c00;
         }
-        
+
         /* Interactive animations for results */
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-10px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(10px);
+            }
         }
+
         .shake-animation {
             animation: shake 0.5s;
         }
+
         @keyframes tada {
-            0% { transform: scale(1); }
-            10%, 20% { transform: scale(0.9) rotate(-3deg); }
-            30%, 50%, 70%, 90% { transform: scale(1.1) rotate(3deg); }
-            40%, 60%, 80% { transform: scale(1.1) rotate(-3deg); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            10%,
+            20% {
+                transform: scale(0.9) rotate(-3deg);
+            }
+
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: scale(1.1) rotate(3deg);
+            }
+
+            40%,
+            60%,
+            80% {
+                transform: scale(1.1) rotate(-3deg);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
+
         .tada-animation {
             animation: tada 1s;
         }
 
         /* Responsive */
-        @media (max-height: 800px), (max-width: 600px) {
-            h1 { font-size: 1.8rem; margin-bottom: 10px; margin-top: 5px; }
-            .question { font-size: 2.8rem; }
-            .option-btn { font-size: 1.5rem; padding: 12px 10px; }
-            .game-container { padding: 15px; border-width: 3px; }
-            .question-box { padding: 15px; margin-bottom: 15px; }
-            .score-board { font-size: 1.2rem; margin-bottom: 10px; }
-            #next-btn { padding: 12px 25px; font-size: 1.3rem; margin-top: 10px; }
-            .feedback { height: 35px; font-size: 1.5rem; margin: 10px 0; }
+        @media (max-height: 800px),
+        (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 10px;
+                margin-top: 5px;
+            }
+
+            .question {
+                font-size: 2.8rem;
+            }
+
+            .option-btn {
+                font-size: 1.5rem;
+                padding: 12px 10px;
+            }
+
+            .game-container {
+                padding: 15px;
+                border-width: 3px;
+            }
+
+            .question-box {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .score-board {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+
+            #next-btn {
+                padding: 12px 25px;
+                font-size: 1.3rem;
+                margin-top: 10px;
+            }
+
+            .feedback {
+                height: 35px;
+                font-size: 1.5rem;
+                margin: 10px 0;
+            }
         }
-        
+
         @media (max-width: 400px) {
-            .question { font-size: 2.2rem; }
-            .option-btn { font-size: 1.2rem; padding: 10px; border-radius: 12px; }
-            .options { gap: 10px; }
+            .question {
+                font-size: 2.2rem;
+            }
+
+            .option-btn {
+                font-size: 1.2rem;
+                padding: 10px;
+                border-radius: 12px;
+            }
+
+            .options {
+                gap: 10px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <h1>🌟 เกมคำศัพท์ อ.3 🌟</h1>
-    
+
     <div class="score-board">⭐ คะแนน: <span id="score">0</span> ⭐</div>
 
     <div class="game-container">
         <div class="question-box">
             <div class="question" id="question">แมว</div>
         </div>
-        
+
         <div class="options" id="options">
             <!-- Buttons dynamically generated -->
         </div>
-        
+
         <div class="feedback" id="feedback"></div>
-        
+
         <button id="next-btn" onclick="nextQuestion()">ข้อต่อไป ➡️</button>
     </div>
 
@@ -232,15 +353,15 @@
             const q = vocabulary[currentQuestion];
             const qBox = document.querySelector('.question-box');
             qBox.classList.remove('tada-animation', 'shake-animation');
-            
+
             document.getElementById("question").textContent = q.thai;
-            
+
             let currentOptions = [...q.options];
             shuffleArray(currentOptions);
 
             const optionsContainer = document.getElementById("options");
             optionsContainer.innerHTML = '';
-            
+
             currentOptions.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = 'option-btn';
@@ -256,14 +377,14 @@
         function playSound(type) {
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                if(!audioCtx) return;
-                
+                if (!audioCtx) return;
+
                 const oscillator = audioCtx.createOscillator();
                 const gainNode = audioCtx.createGain();
-                
+
                 oscillator.connect(gainNode);
                 gainNode.connect(audioCtx.destination);
-                
+
                 if (type === 'correct') {
                     oscillator.type = 'sine';
                     oscillator.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
@@ -282,7 +403,7 @@
                     oscillator.start();
                     oscillator.stop(audioCtx.currentTime + 0.3);
                 }
-            } catch(e) {
+            } catch (e) {
                 console.log("Audio not supported");
             }
         }
@@ -292,7 +413,7 @@
             const feedbackEl = document.getElementById("feedback");
             const qBox = document.querySelector('.question-box');
             const btns = document.querySelectorAll('.option-btn');
-            
+
             // Disable buttons after guess
             btns.forEach(b => {
                 b.disabled = true;
@@ -308,7 +429,7 @@
 
             // Force reflow for animation
             feedbackEl.style.animation = 'none';
-            feedbackEl.offsetHeight; 
+            feedbackEl.offsetHeight;
             feedbackEl.style.animation = 'popIn 0.5s forwards';
 
             if (selected === correctAnswer) {
@@ -343,9 +464,9 @@
                 document.getElementById("options").innerHTML = `<div style="grid-column: span 2; font-size: 3rem; color: #ff9800;">คุณได้คะแนน ${score} / ${vocabulary.length}</div>`;
                 document.getElementById("feedback").textContent = "ยอดเยี่ยมมาก! 🏆";
                 document.getElementById("next-btn").textContent = "เล่นใหม่ 🔄";
-                
-                if(score > vocabulary.length * 0.7) {
-                    for(let i=0; i<3; i++) setTimeout(createConfetti, i*500);
+
+                if (score > vocabulary.length * 0.7) {
+                    for (let i = 0; i < 3; i++) setTimeout(createConfetti, i * 500);
                 }
 
                 document.getElementById("next-btn").onclick = () => {
@@ -365,7 +486,7 @@
                 const confetti = document.createElement('div');
                 const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFEB3B', '#FFC107', '#FF9800', '#FF5722'];
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                
+
                 confetti.style.position = 'fixed';
                 confetti.style.width = '10px';
                 confetti.style.height = '10px';
@@ -375,19 +496,19 @@
                 confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
                 confetti.style.zIndex = '1000';
                 confetti.style.pointerEvents = 'none';
-                
+
                 document.body.appendChild(confetti);
-                
+
                 const duration = Math.random() * 3 + 2;
                 confetti.animate([
                     { transform: `translate3d(0,0,0) rotate(0deg)`, opacity: 1 },
-                    { transform: `translate3d(${Math.random()*200 - 100}px, 100vh, 0) rotate(${Math.random()*720}deg)`, opacity: 0 }
+                    { transform: `translate3d(${Math.random() * 200 - 100}px, 100vh, 0) rotate(${Math.random() * 720}deg)`, opacity: 0 }
                 ], {
                     duration: duration * 1000,
                     easing: 'cubic-bezier(.37,0,.63,1)',
                     fill: 'forwards'
                 });
-                
+
                 setTimeout(() => confetti.remove(), duration * 1000);
             }
         }
@@ -396,4 +517,5 @@
         loadQuestion();
     </script>
 </body>
+
 </html>

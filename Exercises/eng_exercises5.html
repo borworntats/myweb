@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Exercises: Past Simple Questions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            /* Purple theme */
+            --primary-hover: #7c3aed;
+            --success: #10b981;
+            --error: #ef4444;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            min-height: 100vh;
+            color: var(--text-main);
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.125rem;
+        }
+
+        .example-box {
+            background: linear-gradient(to right, #f3e8ff, #faf5ff);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 0 0.75rem 0.75rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .example-text {
+            font-size: 1.1rem;
+        }
+
+        .exercise-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.5s ease-out backwards;
+        }
+
+        .exercise-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .question-number {
+            background: var(--primary);
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 600;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.3);
+        }
+
+        .question-text {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-right: 3rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+        }
+
+        input[type="text"]::placeholder {
+            color: #94a3b8;
+        }
+
+        .status-icon {
+            position: absolute;
+            right: 1.25rem;
+            font-size: 1.25rem;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-weight: bold;
+        }
+
+        .correct input {
+            border-color: var(--success);
+            background: #ecfdf5;
+            color: #065f46;
+        }
+
+        .correct .status-icon.success {
+            opacity: 1;
+            transform: scale(1);
+            color: var(--success);
+        }
+
+        .incorrect input {
+            border-color: var(--error);
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        .incorrect .status-icon.error {
+            opacity: 1;
+            transform: scale(1);
+            color: var(--error);
+        }
+
+        .feedback {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 0.75rem;
+            height: 1.25rem;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .correct .feedback {
+            color: var(--success);
+            opacity: 1;
+        }
+
+        .incorrect .feedback {
+            color: var(--error);
+            opacity: 1;
+        }
+
+        .action-container {
+            text-align: center;
+            margin-top: 3rem;
+            animation: fadeIn 1.2s ease-out;
+            padding-bottom: 2rem;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary) 0%, #a855f7 100%);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            color: #0f172a;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+
+        .score-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .exercise-card {
+                padding: 1.25rem;
+            }
+
+            .question-text {
+                font-size: 1rem;
+            }
+
+            input[type="text"] {
+                font-size: 1rem;
+                padding: 0.875rem 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Make Past Simple Questions</h1>
+            <p class="subtitle">Exercise 4: Make Past Simple questions with the other verb</p>
+        </header>
+
+        <div class="example-box">
+            <div class="example-text">
+                <strong>Example:</strong> It rained a lot last night. &rarr; <em>Did it rain a lot last night?</em>
+            </div>
+        </div>
+
+        <div id="quiz-container">
+            <!-- Questions will be injected here via JS -->
+        </div>
+
+        <div class="action-container">
+            <button class="btn" onclick="checkAnswers()">Check Answers</button>
+            <div id="score" class="score-display"></div>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { id: 1, prompt: "You saw me last week.", answers: ["Did you see me last week?", "Did you see me last week"] },
+            { id: 2, prompt: "You met your father yesterday.", answers: ["Did you meet your father yesterday?", "Did you meet your father yesterday"] },
+            { id: 3, prompt: "We went to Japan in April.", answers: ["Did we go to Japan in April?", "Did we go to Japan in April"] },
+            { id: 4, prompt: "It snowed last winter.", answers: ["Did it snow last winter?", "Did it snow last winter"] },
+            { id: 5, prompt: "The film started on time last night.", answers: ["Did the film start on time last night?", "Did the film start on time last night"] },
+            { id: 6, prompt: "Julie watched a film on Saturday.", answers: ["Did Julie watch a film on Saturday?", "Did Julie watch a film on Saturday"] },
+            { id: 7, prompt: "Lucy passed the exam.", answers: ["Did Lucy pass the exam?", "Did Lucy pass the exam"] },
+            { id: 8, prompt: "Malee had fun at the party.", answers: ["Did Malee have fun at the party?", "Did Malee have fun at the party"] },
+            { id: 9, prompt: "I locked the door.", answers: ["Did I lock the door?", "Did I lock the door", "Did you lock the door?", "Did you lock the door"] },
+            { id: 10, prompt: "Pipo and Yui went to the café at lunchtime.", answers: ["Did Pipo and Yui go to the cafe at lunchtime?", "Did Pipo and Yui go to the cafe at lunchtime", "Did Pipo and Yui go to the café at lunchtime?", "Did Pipo and Yui go to the café at lunchtime", "Did Pipo and Yui go to the cafe at lunch time?", "Did Pipo and Yui go to the cafe at lunch time"] }
+        ];
+
+        const quizContainer = document.getElementById('quiz-container');
+
+        // Render questions
+        questions.forEach((q, index) => {
+            const delay = index * 0.08;
+            const cardHtml = `
+            <div class="exercise-card" id="card-${q.id}" style="animation-delay: ${delay}s">
+                <div class="question-header">
+                    <div class="question-number">${q.id}</div>
+                    <div class="question-text">${q.prompt}</div>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="input-${q.id}" placeholder="Type your question here..." autocomplete="off">
+                    <span class="status-icon success">✓</span>
+                    <span class="status-icon error">✗</span>
+                </div>
+                <div class="feedback" id="feedback-${q.id}"></div>
+            </div>
+        `;
+            quizContainer.insertAdjacentHTML('beforeend', cardHtml);
+        });
+
+        // Add Enter key event listener to inputs
+        document.querySelectorAll('input').forEach((input, index, array) => {
+            input.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    // Focus next input or check answers
+                    if (index < array.length - 1) {
+                        array[index + 1].focus();
+                    } else {
+                        checkAnswers();
+                    }
+                }
+            });
+        });
+
+        function cleanString(str) {
+            return str.trim().replace(/\s+/g, ' ').toLowerCase();
+        }
+
+        function checkAnswers() {
+            let score = 0;
+            let allAnswered = true;
+
+            questions.forEach(q => {
+                const inputEl = document.getElementById(`input-${q.id}`);
+                const cardEl = document.getElementById(`card-${q.id}`);
+                const feedbackEl = document.getElementById(`feedback-${q.id}`);
+
+                const userAnswer = cleanString(inputEl.value);
+
+                if (userAnswer === "") {
+                    allAnswered = false;
+                    cardEl.classList.remove('correct', 'incorrect');
+                    feedbackEl.textContent = "Please provide an answer.";
+                    cardEl.classList.add('incorrect');
+                    return;
+                }
+
+                // Check if user answer matches any of the accepted answers
+                let isCorrect = false;
+                for (let ans of q.answers) {
+                    if (userAnswer === cleanString(ans) || userAnswer === cleanString(ans).replace('?', '')) {
+                        isCorrect = true;
+                        break;
+                    }
+                }
+
+                if (isCorrect) {
+                    cardEl.classList.remove('incorrect');
+                    cardEl.classList.add('correct');
+                    feedbackEl.textContent = "Excellent!";
+                    score++;
+                } else {
+                    cardEl.classList.remove('correct');
+                    cardEl.classList.add('incorrect');
+
+                    // Provide a helpful hint
+                    if (!userAnswer.startsWith("did")) {
+                        feedbackEl.textContent = "Try again! Hint: Past simple questions usually start with 'Did'.";
+                    } else {
+                        feedbackEl.textContent = "Try again! Hint: Make sure to change the verb back to its base form (e.g., 'went' → 'go').";
+                    }
+                }
+            });
+
+            const scoreDisplay = document.getElementById('score');
+            if (!allAnswered) {
+                scoreDisplay.textContent = `Please complete all questions!`;
+                scoreDisplay.style.color = "var(--error)";
+                scoreDisplay.classList.add('score-visible');
+                return;
+            }
+
+            scoreDisplay.textContent = `You scored ${score} out of ${questions.length}!`;
+            scoreDisplay.classList.add('score-visible');
+
+            if (score === questions.length) {
+                scoreDisplay.style.color = "var(--success)";
+                triggerConfetti();
+            } else {
+                scoreDisplay.style.color = "";
+            }
+        }
+
+        function triggerConfetti() {
+            for (let i = 0; i < 70; i++) {
+                createConfettiParticle();
+            }
+        }
+
+        function createConfettiParticle() {
+            const colors = ['#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#6366f1', '#3b82f6'];
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = Math.random() * 8 + 6 + 'px';
+            confetti.style.height = Math.random() * 12 + 8 + 'px';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.top = '-20px';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            confetti.style.zIndex = '9999';
+            confetti.style.pointerEvents = 'none';
+            document.body.appendChild(confetti);
+
+            const duration = Math.random() * 3 + 2;
+            const animation = confetti.animate([
+                { transform: 'translate3d(0,0,0) rotate(0deg)', opacity: 1 },
+                { transform: `translate3d(${Math.random() * 300 - 150}px, 100vh, 0) rotate(${Math.random() * 1000}deg)`, opacity: 0 }
+            ], {
+                duration: duration * 1000,
+                easing: 'cubic-bezier(.37,0,.63,1)'
+            });
+
+            animation.onfinish = () => confetti.remove();
+        }
+    </script>
+
+</body>
+
+</html>

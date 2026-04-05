@@ -171,6 +171,66 @@
             border-color: rgba(16, 185, 129, 0.2);
         }
 
+        /* Styling for the third card manually */
+        .card-3 {
+            border-color: #E5E7EB;
+        }
+
+        .card-3:hover {
+            border-color: #F59E0B;
+            box-shadow: 0 20px 25px -5px rgba(245, 158, 11, 0.2), 0 10px 10px -5px rgba(245, 158, 11, 0.1);
+        }
+
+        .card-3::before {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(217, 119, 6, 0.08));
+        }
+
+        .card-3 .badge {
+            background: #FFFBEB;
+            color: #D97706;
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        /* Styling for the fourth card manually */
+        .card-4 {
+            border-color: #E5E7EB;
+        }
+
+        .card-4:hover {
+            border-color: #8B5CF6;
+            box-shadow: 0 20px 25px -5px rgba(139, 92, 246, 0.2), 0 10px 10px -5px rgba(139, 92, 246, 0.1);
+        }
+
+        .card-4::before {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(124, 58, 237, 0.08));
+        }
+
+        .card-4 .badge {
+            background: #F5F3FF;
+            color: #7C3AED;
+            border-color: rgba(139, 92, 246, 0.2);
+        }
+
+        /* Styling for the fifth card manually */
+        .card-5 {
+            border-color: #E5E7EB;
+        }
+
+        .card-5:hover {
+            border-color: #0EA5E9;
+            box-shadow: 0 20px 25px -5px rgba(14, 165, 233, 0.2), 0 10px 10px -5px rgba(14, 165, 233, 0.1);
+        }
+
+        .card-5::before {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(2, 132, 199, 0.08));
+        }
+
+        .card-5 .badge {
+            background: #F0F9FF;
+            color: #0284C7;
+            border-color: rgba(14, 165, 233, 0.2);
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 3rem 2rem;
@@ -226,18 +286,41 @@
         <div class="subtitle">เลือกแบบฝึกหัดภาษาอังกฤษที่คุณต้องการทำด้านล่างนี้</div>
 
         <div class="card-grid">
-            <a href="eng_exercises1.html" class="card">
+            <a href="eng_exercises1.html" class="card" target="_blank">
                 <div class="card-icon">🎯</div>
-                <h2 class="card-title">Exercise 1</h2>
-                <div class="card-desc">แบบฝึกหัดเรื่องการเปรียบเทียบและการเติมคำในช่องว่าง</div>
+                <h2 class="card-title">Complete the sentences</h2>
+                <div class="card-desc">แบบฝึกหัดเรื่องการเปรียบเทียบ</div>
                 <div class="badge">12 ข้อ</div>
             </a>
 
-            <a href="eng_exercises2.html" class="card card-2">
-                <div class="card-icon">🚀</div>
-                <h2 class="card-title">Exercise 2</h2>
-                <div class="card-desc">แบบฝึกหัดชุดใหญ่ ฝึกการใช้ Comparative & Superlative</div>
+            <a href="eng_exercises2.html" class="card card-2" target="_blank">
+                <div class=" card-icon">🚀
+                </div>
+                <h2 class="card-title">Complete the sentences</h2>
+                <div class="card-desc">แบบฝึกหัดการใช้ Comparative & Superlative</div>
                 <div class="badge">40 ข้อ</div>
+            </a>
+
+            <a href="eng_exercises4.html" class="card card-3" target="_blank">
+                <div class=" card-icon">✨
+                </div>
+                <h2 class="card-title">Present Simple</h2>
+                <div class="card-desc">เปลี่ยนประโยคเป็น Yes / No Questions โดยใช้ Verb to be</div>
+                <div class="badge">9 ข้อ</div>
+            </a>
+
+            <a href="eng_exercises5.html" class="card card-4" target="_blank">
+                <div class="card-icon">⚡</div>
+                <h2 class="card-title">Past Simple</h2>
+                <div class="card-desc">เปลี่ยนประโยคเป็น Past Simple questions</div>
+                <div class="badge">10 ข้อ</div>
+            </a>
+
+            <a href="eng_exercises3.html" class="card card-5" target="_blank">
+                <div class="card-icon">💬</div>
+                <h2 class="card-title">Short Answers</h2>
+                <div class="card-desc">ตอบคำถามแบบสั้นด้วย Yes / No</div>
+                <div class="badge">10 ข้อ</div>
             </a>
         </div>
     </div>
