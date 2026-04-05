@@ -277,6 +277,39 @@
             padding: 0.2rem 0.5rem;
             border-radius: 6px;
             display: inline-block;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .vocab-eng:hover {
+            background: #D1FAE5;
+            transform: scale(1.05);
+        }
+
+        .vocab-eng:active {
+            transform: scale(0.95);
+        }
+
+        .vocab-eng::after {
+            content: 'Copied!';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #374151;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .vocab-eng.copied::after {
+            opacity: 1;
         }
 
         .vocab-thai {
@@ -533,12 +566,29 @@
             { eng: 'police drama (n.)', thai: 'ละครเกี่ยวกับตำรวจ' }
         ];
 
+        let lastCopiedWord = "";
+
         // Render Vocab
         const vocabContainer = document.getElementById('vocab-container');
         vocabList.forEach(v => {
             const engDiv = document.createElement('div');
             engDiv.className = 'vocab-eng';
             engDiv.textContent = v.eng;
+            engDiv.title = "คลิกเพื่อคัดลอก";
+
+            engDiv.addEventListener('click', () => {
+                const wordOnly = v.eng.split(' (')[0];
+                lastCopiedWord = wordOnly;
+                navigator.clipboard.writeText(wordOnly).then(() => {
+                    engDiv.classList.add('copied');
+                    setTimeout(() => engDiv.classList.remove('copied'), 1500);
+                }).catch(err => {
+                    console.error("Clipboard write failed, but saved internally.", err);
+                    engDiv.classList.add('copied');
+                    setTimeout(() => engDiv.classList.remove('copied'), 1500);
+                });
+            });
+
             const thaiDiv = document.createElement('div');
             thaiDiv.className = 'vocab-thai';
             thaiDiv.textContent = v.thai;
@@ -579,6 +629,17 @@
                     input.addEventListener('keypress', function (e) {
                         if (e.key === 'Enter') {
                             checkAnswers();
+                        }
+                    });
+
+                    // Paste copied text on click (using internal variable to avoid clipboard permission popup)
+                    input.addEventListener('click', function () {
+                        if (this.value !== '') return; // Don't override if user already typed something
+
+                        if (lastCopiedWord) {
+                            this.value = lastCopiedWord;
+                            this.classList.remove('wrong', 'correct');
+                            document.getElementById('score-display').classList.remove('visible');
                         }
                     });
 

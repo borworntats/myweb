@@ -241,6 +241,39 @@
             padding: 0.2rem 0.6rem;
             border-radius: 6px;
             display: inline-block;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .vocab-eng:hover {
+            background: #E0E7FF;
+            transform: scale(1.05);
+        }
+
+        .vocab-eng:active {
+            transform: scale(0.95);
+        }
+
+        .vocab-eng::after {
+            content: 'Copied!';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #374151;
+            color: white;
+            font-size: 0.75rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .vocab-eng.copied::after {
+            opacity: 1;
         }
 
         .vocab-thai {
@@ -433,6 +466,23 @@
     </div>
 
     <script>
+        let lastCopiedWord = "";
+        document.querySelectorAll('.vocab-eng').forEach(engDiv => {
+            engDiv.title = "คลิกเพื่อคัดลอก";
+            engDiv.addEventListener('click', () => {
+                const wordOnly = engDiv.textContent.trim().split(' (')[0];
+                lastCopiedWord = wordOnly;
+                navigator.clipboard.writeText(wordOnly).then(() => {
+                    engDiv.classList.add('copied');
+                    setTimeout(() => engDiv.classList.remove('copied'), 1500);
+                }).catch(err => {
+                    console.error("Clipboard write failed, but saved internally.", err);
+                    engDiv.classList.add('copied');
+                    setTimeout(() => engDiv.classList.remove('copied'), 1500);
+                });
+            });
+        });
+
         const questions = [
             { text: "Andy is as tall {0} Kate.", answers: ["as"] },
             { text: "Jane is {0} short {1} Paul.", answers: ["as", "as"] },
@@ -483,6 +533,17 @@
                     input.addEventListener('keypress', function (e) {
                         if (e.key === 'Enter') {
                             checkAnswers();
+                        }
+                    });
+
+                    // Paste copied text on click (using internal variable to avoid clipboard permission popup)
+                    input.addEventListener('click', function () {
+                        if (this.value !== '') return; // Don't override if user already typed something
+
+                        if (lastCopiedWord) {
+                            this.value = lastCopiedWord;
+                            this.classList.remove('wrong', 'correct');
+                            document.getElementById('score-display').classList.remove('visible');
                         }
                     });
 
