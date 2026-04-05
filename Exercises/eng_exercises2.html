@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Exercises: Complete the Sentences</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+Thai:wght@300;400;500;600;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10B981;
+            --primary-hover: #059669;
+            --success: #059669;
+            --danger: #EF4444;
+            --bg-gradient-start: #064E3B;
+            --bg-gradient-end: #047857;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #1F2937;
+        }
+
+        body {
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+            font-family: 'Outfit', 'Noto Sans Thai', sans-serif;
+            background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            background-size: 400% 400%;
+            animation: gradientAnim 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-main);
+            box-sizing: border-box;
+        }
+
+        @keyframes gradientAnim {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .game-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 1100px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #F59E0B, #10B981, #3B82F6);
+        }
+
+        .header {
+            margin-bottom: 2.5rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #111827;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #059669, #3B82F6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #6B7280;
+            font-weight: 600;
+        }
+
+        .question-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        .question-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .question-list::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .question-list::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        .question-list::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        .question-item {
+            font-size: 1.25rem;
+            line-height: 2;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .num-span {
+            font-weight: 800;
+            color: var(--primary);
+            margin-right: 0.5rem;
+            min-width: 35px;
+            display: inline-block;
+        }
+
+        input[type="text"] {
+            background: rgba(243, 244, 246, 0.8);
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            padding: 0.4rem 0.8rem;
+            margin: 0 0.5rem;
+            font-size: 1.15rem;
+            font-family: inherit;
+            font-weight: 600;
+            text-align: center;
+            width: 140px;
+            color: var(--primary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02) inset;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+            transform: translateY(-2px);
+        }
+
+        input.correct {
+            border-color: var(--success);
+            background-color: #ECFDF5;
+            color: var(--success);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+        }
+
+        input.wrong {
+            border-color: var(--danger);
+            background-color: #FEF2F2;
+            color: var(--danger);
+            animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+        }
+
+        @keyframes shake {
+
+            10%,
+            90% {
+                transform: translate3d(-1px, 0, 0);
+            }
+
+            20%,
+            80% {
+                transform: translate3d(2px, 0, 0);
+            }
+
+            30%,
+            50%,
+            70% {
+                transform: translate3d(-4px, 0, 0);
+            }
+
+            40%,
+            60% {
+                transform: translate3d(4px, 0, 0);
+            }
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-height: 100%;
+        }
+
+        .vocab-box {
+            background: #ffffff;
+            border: 2px dashed #CBD5E1;
+            border-radius: 20px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .vocab-box::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .vocab-box::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .vocab-box::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 4px;
+        }
+
+        .vocab-box:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .vocab-header {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: #1F2937;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .vocab-header::before,
+        .vocab-header::after {
+            content: '';
+            height: 2px;
+            width: 30px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.8rem 1rem;
+            font-size: 1rem;
+            align-items: center;
+        }
+
+        .vocab-eng {
+            font-weight: 700;
+            color: var(--primary);
+            background: #ECFDF5;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .vocab-thai {
+            color: #4B5563;
+            font-weight: 500;
+        }
+
+        .actions {
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            background: #F9FAFB;
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, var(--primary), #059669);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4);
+            font-family: inherit;
+        }
+
+        .btn-check:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-check:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .score-display {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4B5563;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .score-display.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .score-display span {
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: 800;
+            background: #ECFDF5;
+            padding: 0.2rem 1rem;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 968px) {
+            .game-container {
+                grid-template-columns: 1fr;
+                padding: 2rem;
+            }
+
+            .sidebar {
+                grid-row: 1;
+            }
+
+            body {
+                padding: 1rem;
+            }
+
+            .actions {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .game-container {
+                padding: 1.5rem;
+                border-radius: 20px;
+                gap: 1.5rem;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .question-item {
+                font-size: 1.1rem;
+                line-height: 1.8;
+            }
+
+            input[type="text"] {
+                font-size: 0.95rem;
+                padding: 0.3rem 0.5rem;
+                width: 110px;
+                margin: 0.2rem 0.3rem;
+            }
+
+            .vocab-box {
+                padding: 1.2rem;
+            }
+
+            .vocab-header {
+                font-size: 1.2rem;
+                margin-bottom: 1rem;
+            }
+
+            .vocab-grid {
+                font-size: 1rem;
+                gap: 0.6rem 1rem;
+            }
+
+            .btn-check {
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+
+            .score-display {
+                font-size: 1.1rem;
+                justify-content: center;
+            }
+
+            .score-display span {
+                font-size: 1.6rem;
+                padding: 0.2rem 0.8rem;
+            }
+
+            .actions {
+                padding: 1rem;
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="game-container">
+        <div class="main-content">
+            <div class="header">
+                <h1>English Grammar Challenge 2</h1>
+                <div class="subtitle">Exercises 4 : Complete the sentences.</div>
+            </div>
+
+            <div class="question-list" id="question-container">
+                <!-- Questions rendered via JS -->
+            </div>
+
+            <div class="actions">
+                <button class="btn-check" onclick="checkAnswers()">Check Answers</button>
+                <div class="score-display" id="score-display">Score: <span id="score-value">0</span> / 40</div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="vocab-box">
+                <div class="vocab-header">คำศัพท์</div>
+                <div class="vocab-grid" id="vocab-container">
+                    <!-- Vocab rendered via JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Array of questions. We support multiple valid answers per blank for flexibility.
+        const questions = [
+            { text: "My house is the {0} (large).", answers: [["largest"]] },
+            { text: "My mum thinks that cats are {0} (good) pets than dogs.", answers: [["better"]] },
+            { text: "Cycling is one of the {0} (dangerous) sports.", answers: [["most dangerous"]] },
+            { text: "I want to have the {0} (big) car.", answers: [["biggest"]] },
+            { text: "A blue whale is as {0} (heavy) twenty-five elephants.", answers: [["heavy as", "heavy"]] },
+            { text: "Bicycles are {0} (slow) than cars.", answers: [["slower"]] },
+            { text: "What is the {0} (good) film you've seen?", answers: [["best"]] },
+            { text: "Computers are {0} (cheap) than mobile phones.", answers: [["cheaper"]] },
+            { text: "Is your brother {0} (tall) than you?", answers: [["taller"]] },
+            { text: "I think Spanish is {0} (easy) than Japanese.", answers: [["easier"]] },
+            { text: "Our dog is {0} (nice) than your dog.", answers: [["nicer"]] },
+            { text: "Glass bottles are {0} (good) than plastic bottles.", answers: [["better"]] },
+            { text: "I think Rafael Nadal is the {0} (good) tennis player in Spain.", answers: [["best"]] },
+            { text: "Sharks are {0} (dangerous) than other fish.", answers: [["more dangerous"]] },
+            { text: "Peter is {0} (smart) than his brother.", answers: [["smarter"]] },
+            { text: "Today is the {0} (good) day of the year.", answers: [["best"]] },
+            { text: "A Mercedes is {0} (expensive) than a Fiat.", answers: [["more expensive"]] },
+            { text: "Chappuis is the {0} (good) football player.", answers: [["best"]] },
+            { text: "Peter is as {0} (friendly) Tom.", answers: [["friendly as", "friendly"]] },
+            { text: "Ploy is as {0} (clever) Four.", answers: [["clever as", "clever"]] },
+            { text: "Comedies are {0} (funny) than police dramas.", answers: [["funnier"]] },
+            { text: "Rose is {0} (big) than Jenny.", answers: [["bigger"]] },
+            { text: "Smith is {0} (old) than Peter.", answers: [["older"]] },
+            { text: "Ken is as {0} (fast) David.", answers: [["fast as", "fast"]] },
+            { text: "My hair is {0} (long) than yours.", answers: [["longer"]] },
+            { text: "A dolphin is {0} (intelligent) than a shark.", answers: [["more intelligent"]] },
+            { text: "Liza is as {0} (wise) her sister.", answers: [["wise as", "wise"]] },
+            { text: "Malee is as {0} (happy) Jane.", answers: [["happy as", "happy"]] },
+            { text: "Ploy is {0} (busy) than Bell.", answers: [["busier"]] },
+            { text: "Anfield is the {0} (dangerous) football player.", answers: [["most dangerous"]] },
+            { text: "This is the {0} (narrow) of all roads in Thailand.", answers: [["narrowest"]] },
+            { text: "Health is {0} (important) than money.", answers: [["more important"]] },
+            { text: "Those cakes are the {0} (bad) I've ever tasted.", answers: [["worst"]] },
+            { text: "My dog is the {0} (good) dog in the world.", answers: [["best"]] },
+            { text: "Pipo's house is {0} (small) than Peter's.", answers: [["smaller"]] },
+            { text: "Peter is {0} than his brother. (old)", answers: [["older"]] },
+            { text: "This problem is {0} than that problem. (easy)", answers: [["easier"]] },
+            { text: "Tom is the {0} boy in our class. (tall)", answers: [["tallest"]] },
+            { text: "My friend is as {0} my sister. (fat)", answers: [["fat as", "fat"]] },
+            { text: "My room is the {0} room in our house. (small)", answers: [["smallest"]] }
+        ];
+
+        const vocabList = [
+            { eng: 'large (adj.)', thai: 'ใหญ่' },
+            { eng: 'pet (n.)', thai: 'สัตว์เลี้ยง' },
+            { eng: 'sport (n.)', thai: 'กีฬา' },
+            { eng: 'whale (n.)', thai: 'ปลาวาฬ' },
+            { eng: 'film (n.)', thai: 'ภาพยนตร์' },
+            { eng: 'easy (adj.)', thai: 'ง่าย' },
+            { eng: 'glass (n.)', thai: 'แก้ว' },
+            { eng: 'bottle (n.)', thai: 'ขวด' },
+            { eng: 'plastic (n.)', thai: 'พลาสติก' },
+            { eng: 'player (n.)', thai: 'ผู้เล่น' },
+            { eng: 'smart (adj.)', thai: 'ฉลาด' },
+            { eng: 'clever (adj.)', thai: 'ฉลาด' },
+            { eng: 'friendly (adj.)', thai: 'เป็นมิตร' },
+            { eng: 'dangerous (adj.)', thai: 'อันตราย' },
+            { eng: 'comedy (n.)', thai: 'ตลก' },
+            { eng: 'funny (adj.)', thai: 'สนุกสนาน' },
+            { eng: 'wise (adj.)', thai: 'ฉลาด' },
+            { eng: 'narrow (adj.)', thai: 'แคบ' },
+            { eng: 'health (n.)', thai: 'สุขภาพ' },
+            { eng: 'important (adj.)', thai: 'สำคัญ' },
+            { eng: 'taste (v.)', thai: 'ชิม' },
+            { eng: 'problem (n.)', thai: 'ปัญหา' },
+            { eng: 'room (n.)', thai: 'ห้อง' },
+            { eng: 'class (n.)', thai: 'ชั้นเรียน' },
+            { eng: 'friend (n.)', thai: 'เพื่อน' },
+            { eng: 'police drama (n.)', thai: 'ละครเกี่ยวกับตำรวจ' }
+        ];
+
+        // Render Vocab
+        const vocabContainer = document.getElementById('vocab-container');
+        vocabList.forEach(v => {
+            const engDiv = document.createElement('div');
+            engDiv.className = 'vocab-eng';
+            engDiv.textContent = v.eng;
+            const thaiDiv = document.createElement('div');
+            thaiDiv.className = 'vocab-thai';
+            thaiDiv.textContent = v.thai;
+            vocabContainer.appendChild(engDiv);
+            vocabContainer.appendChild(thaiDiv);
+        });
+
+        const container = document.getElementById('question-container');
+
+        // Render questions
+        questions.forEach((q, qIndex) => {
+            const item = document.createElement('div');
+            item.className = 'question-item';
+
+            const numSpan = document.createElement('span');
+            numSpan.className = 'num-span';
+            numSpan.textContent = (qIndex + 1) + ". ";
+            item.appendChild(numSpan);
+
+            let parts = q.text.split(/\{\d+\}/);
+
+            parts.forEach((part, i) => {
+                item.appendChild(document.createTextNode(part));
+
+                if (i < parts.length - 1) {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.dataset.qIndex = qIndex;
+                    input.dataset.ansIndex = i;
+                    input.autocomplete = 'off';
+                    input.spellcheck = false;
+
+                    input.addEventListener('input', function () {
+                        this.classList.remove('wrong', 'correct');
+                        document.getElementById('score-display').classList.remove('visible');
+                    });
+
+                    input.addEventListener('keypress', function (e) {
+                        if (e.key === 'Enter') {
+                            checkAnswers();
+                        }
+                    });
+
+                    item.appendChild(input);
+                }
+            });
+
+            container.appendChild(item);
+        });
+
+        function checkAnswers() {
+            let score = 0;
+            const inputs = document.querySelectorAll('input[type="text"]');
+
+            inputs.forEach(input => {
+                const qIndex = input.dataset.qIndex;
+                const ansIndex = input.dataset.ansIndex;
+                const expectedAnswers = questions[qIndex].answers[ansIndex].map(a => a.toLowerCase());
+                const userAnswer = input.value.trim().toLowerCase();
+
+                input.classList.remove('correct', 'wrong');
+
+                void input.offsetWidth; // reset animation
+
+                if (expectedAnswers.includes(userAnswer)) {
+                    input.classList.add('correct');
+                    score++;
+                } else {
+                    input.classList.add('wrong');
+                }
+            });
+
+            const scoreDisplay = document.getElementById('score-display');
+            const scoreValue = document.getElementById('score-value');
+
+            scoreValue.textContent = score;
+            scoreDisplay.classList.add('visible');
+
+            if (score === questions.length) { // Check if max score is reached (40)
+                confetti({
+                    particleCount: 200,
+                    spread: 90,
+                    origin: { y: 0.6 },
+                    colors: ['#10B981', '#059669', '#F59E0B', '#3B82F6']
+                });
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</body>
+
+</html>
