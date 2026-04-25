@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เมนูเกมเรียนภาษาไทย</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: linear-gradient(135deg, #FFE5B4 0%, #FFB6C1 50%, #E8F4F8 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #FF6B6B;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            color: #5A7D9A;
+            font-size: 1.5rem;
+            margin-bottom: 50px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .menu-card {
+            background: linear-gradient(145deg, #FFFFFF, #F8F8F8);
+            border: 4px solid #B8D4E8;
+            border-radius: 30px;
+            padding: 40px 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 12px 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-card.alphabet {
+            border-color: #FFB6C1;
+            background: linear-gradient(145deg, #FFF0F5, #FFE4EC);
+        }
+
+        .menu-card.alphabet:hover {
+            border-color: #FF9AAB;
+            background: linear-gradient(145deg, #FFE4EC, #FFD0E0);
+        }
+
+        .menu-card.spelling {
+            border-color: #98D8C8;
+            background: linear-gradient(145deg, #F0FFF4, #E8F8F0);
+        }
+
+        .menu-card.spelling:hover {
+            border-color: #7BC4B0;
+            background: linear-gradient(145deg, #E8F8F0, #D0F0E0);
+        }
+
+        .card-icon {
+            font-size: 4rem;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #5A7D9A;
+        }
+
+        .card-description {
+            font-size: 1.1rem;
+            color: #7A9DAA;
+            line-height: 1.5;
+        }
+
+        .footer {
+            margin-top: 50px;
+            color: #7A9DAA;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .menu-card {
+                padding: 30px 20px;
+            }
+
+            .card-icon {
+                font-size: 3rem;
+            }
+
+            .card-title {
+                font-size: 1.5rem;
+            }
+
+            .card-description {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .card-icon {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 เกมเรียนภาษาไทย 🎮</h1>
+        <p class="subtitle">เลือกเกมที่คุณต้องการเล่น</p>
+
+        <div class="menu-grid">
+            <a href="thai_alphabet.html" class="menu-card alphabet">
+                <div class="card-icon">🔤</div>
+                <div class="card-title">พยัญชนะไทย</div>
+                <div class="card-description">ฝึกอ่านและเล่นเกมพยัญชนะไทย ก-ฮ</div>
+            </a>
+
+            <a href="thai_spelling.html" class="menu-card spelling">
+                <div class="card-icon">✏️</div>
+                <div class="card-title">สะกดคำไทย</div>
+                <div class="card-description">ฝึกสะกดคำภาษาไทยตามมาตราตัวสะกด</div>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p>🌟 สนุกกับการเรียนรู้ภาษาไทย 🌟</p>
+        </div>
+    </div>
+</body>
+</html>

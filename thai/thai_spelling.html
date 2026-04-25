@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เกมฝึกสะกดคำภาษาไทย - ชั้น ป.1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: linear-gradient(135deg, #E8F4F8 0%, #FFE4EC 50%, #FFF4CC 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #5A7D9A;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-page {
+            display: block;
+        }
+
+        .submenu-page {
+            display: none;
+        }
+
+        .game-page {
+            display: none;
+        }
+
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .pattern-btn {
+            background: linear-gradient(145deg, #FFFFFF, #F0F0F0);
+            border: 3px solid #B8D4E8;
+            border-radius: 20px;
+            padding: 25px 20px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #5A7D9A;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .pattern-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: linear-gradient(145deg, #FFE4EC, #FFD0E0);
+            border-color: #FFB6C1;
+            box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .pattern-btn:active {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .pattern-title {
+            background: linear-gradient(145deg, #FFE4EC, #FFD0E0);
+            border: 3px solid #FFB6C1;
+            border-radius: 15px;
+            padding: 15px 30px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #D65A7A;
+            margin-bottom: 40px;
+            display: inline-block;
+            box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .word-display {
+            background: linear-gradient(145deg, #FFFFFF, #F8F8F8);
+            border: 4px solid #B8D4E8;
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin: 30px 0;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .word-text {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #5A7D9A;
+            transition: all 0.3s ease;
+        }
+
+        .word-text.bounce {
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 20px 40px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        .next-btn {
+            background: linear-gradient(145deg, #98D8C8, #7BC4B0);
+            color: #2D5A4A;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: linear-gradient(145deg, #7BC4B0, #5FA898);
+            box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .next-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .back-btn {
+            background: linear-gradient(145deg, #FFB6C1, #FF9AAB);
+            color: #8B3A4A;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: linear-gradient(145deg, #FF9AAB, #FF7E8F);
+            box-shadow: 6px 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .decoration {
+            font-size: 3rem;
+            margin: 10px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .pattern-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+
+            .pattern-btn {
+                padding: 20px 15px;
+                font-size: 1.2rem;
+            }
+
+            .pattern-title {
+                font-size: 1.4rem;
+                padding: 12px 20px;
+            }
+
+            .word-display {
+                padding: 40px 20px;
+                min-height: 150px;
+            }
+
+            .word-text {
+                font-size: 2.5rem;
+            }
+
+            .action-btn {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .action-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .pattern-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .word-text {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎮 เกมฝึกสะกดคำภาษาไทย 🎮</h1>
+
+        <!-- Menu Page -->
+        <div class="menu-page" id="menuPage">
+            <h2 style="color: #D65A7A; font-size: 1.5rem; margin-bottom: 20px;">เลือกมาตราตัวสะกดที่ต้องการฝึก</h2>
+            <div class="pattern-grid">
+                <button class="pattern-btn" onclick="showSubMenu('แม่กก')">แม่กก</button>
+                <button class="pattern-btn" onclick="showSubMenu('แม่กด')">แม่กด</button>
+                <button class="pattern-btn" onclick="showSubMenu('แม่กบ')">แม่กบ</button>
+                <button class="pattern-btn" onclick="startGame('แม่กม')">แม่กม</button>
+                <button class="pattern-btn" onclick="showSubMenu('แม่กน')">แม่กน</button>
+                <button class="pattern-btn" onclick="startGame('แม่เกย')">แม่เกย</button>
+                <button class="pattern-btn" onclick="startGame('แม่เกอว')">แม่เกอว</button>
+                <button class="pattern-btn" onclick="startGame('แม่กง')">แม่กง</button>
+            </div>
+        </div>
+
+        <!-- Sub-menu Page -->
+        <div class="submenu-page" id="submenuPage">
+            <h2 style="color: #D65A7A; font-size: 1.5rem; margin-bottom: 20px;">เลือกชุดคำศัพท์ <span id="submenuTitle"></span></h2>
+            <div class="pattern-grid" id="submenuGrid"></div>
+            <div class="button-group">
+                <button class="action-btn back-btn" onclick="goBackToMenu()">⬅️ กลับหน้าหลัก</button>
+            </div>
+        </div>
+
+        <!-- Game Page -->
+        <div class="game-page" id="gamePage">
+            <div class="pattern-title" id="patternTitle"></div>
+            <div class="word-display">
+                <span class="word-text" id="wordText"></span>
+            </div>
+            <div class="button-group">
+                <button class="action-btn back-btn" onclick="prevWord()">⬅️ คำก่อนหน้า</button>
+                <button class="action-btn next-btn" onclick="nextWord()">คำถัดไป ➡️</button>
+                <button class="action-btn back-btn" onclick="speakWord()">🔊 ฟังเสียง</button>
+            </div>
+            <div class="button-group">
+                <button class="action-btn back-btn" onclick="goBack()">⬅️ กลับหน้าหลัก</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Word database for each pattern and set
+        const wordDatabase = {
+            'แม่กก': {
+                'ชุดที่ 1': [
+                    "ตัก", "ซัก", "พัก", "รัก", "หัก", "ทัก", "กัก", "งัก", "จัก", 
+					"ชัก", "ดัก", "คัก", "ถัก", "นัก", "ปัก", "ผัก", "ฟัก", "มัก", 
+					"ยัก", "ลัก", "วัก", "สัก", "มาก", "ปาก", "จาก", "บาก", "กาก", 
+					"ลาก", "ซาก", "ขาก", "ตาก", "ดาก", "ฉาก", "ชาก", "ถาก", 
+					"ทาก", "นาก", "พาก", "ฟาก", "ยาก", "ราก", "หาก","ยิก", 
+					"ติก", "จิก", "วิก", "ดิก", "นิก", "งิก","อีก", "ฉีก", "ปีก", 
+					"ซีก", "หลีก","ปึก", "สึก", "บึก", "ฝึก", "นึก", "ยึก", "ตึก", 
+					"คึก", "ลึก","สุก", "ซุก", "ปุก", "มุก", "จุก", "ลุก", "กุก", 
+					"คุก", "ฉุก", "ตุก", "ทุก", "บุก", "ปลุก", "ผุก", "พุก", "ฟุก"
+                ],
+                'ชุดที่ 2': [
+                    "หุก", "อุก","ถูก", "ดูก", "มูก", "ลูก", "ผูก", "ฟูก", "ปลูก",
+					"เด็ก", "เล็ก", "เก็ก", "เป็ก", "เน็ก","เอก", "เวก", "เยก", "เขก", 
+					"เสก", "เค้ก", "เชก", "เบรก","แยก", "แตก", "แลก", "แจก", "แบก", 
+					"แฝก", "แมก", "แขก", "แหก","ตก", "นก", "ชก", "ปก", "ดก", 
+					"อก", "บก","โกก", "โบก", "โลก", "โภก", "โขก", "โงก", "โจก",
+					"ดอก", "นอก", "ศอก", "บอก", "ลอก", "งอก", "จอก", "กอก", "ขอก", 
+					"คอก", "หอก", "ออก", "ชอก", "รอก", "พอก","เบิก", "เลิก", "เอิก", 
+					"เกิก", "เจิก","เรียก", "เจียก", "เปียก", "เพรียก","เลือก", "เฮือก", "เปือก", 
+					"เผือก", "เปือก", "เยือก", "เผือก","บวก", "ลวก", "พวก", "ดวก", "จวก"
+                ]
+            },
+            'แม่กด': {
+                'ชุดที่ 1': [
+                    "วาด", "ขาด", "ถาด", "คาด", "ปาด", "สาด", "ราด","วัด", "คัด", "ตัด", 
+                    "กัด", "นัด", "ผัด", "มัด", "ขัด", "งัด", "จัด", "ชัด", "ซัด", "ดัด", "ถัด", 
+                    "ทัด", "พัด", "บัด", "ปัด", "ยัด", "รัด", "ลัด", "สัด", "หัด", "อัด","ผิด", 
+                    "ติด", "ปิด", "ชิด", "มิด", "วิด", "อิด", "มืด", "ซีก", "ขีด", "รีด","มีด", 
+                    "จืด", "ยืด", "อืด", "อืด", "ยืด", "อืด","ขุด", "ชุด", "จุด", "ดุด", "บูด"
+                ],
+                'ชุดที่ 2': [
+                    "พูด", "สูด","เข็ด", "เช็ด", "เจ็ด", "เม็ด", "เห็ด", "เผ็ด", "เป็ด", "เด็ด",
+                    "แปด", "แสด", "แฝด", "แดด", "แรด","ตด", "หด", "ขด", "ลด", "สด", 
+                    "มด", "จด","เกิด", "เปิด", "เจิด", "เชิด", "เถิด","ยอด", "กอด", "จอด", 
+                    "ปอด", "ถอด", "ทอด", "บอด", "ลอด", "รอด","เขียด", "เบียด", "เฉียด", 
+                    "เสียด", "เวียด", "เกลียด","สวด", "ขวด", "นวด", "ปวด", "ลวด", "รวด",
+                    "โดด", "โหด", "โพด","เชือด", "เดือด", "เหือด", "เลือด"
+                ]
+            },
+            'แม่กบ': {
+                'ชุดที่ 1': [
+                    "กาบ", "ดาบ", "หาบ", "อาบ", "คาบ", "วาบ", "สาบ", "ปาบ", 
+					"งาบ", "ราบ", "ลาบ", "พาบ", "มาบ", "ทาบ", "ฉาบ","กับ", 
+					"ตับ", "ทับ", "รับ", "จับ", "ขับ", "คับ", "ซับ", "ดับ", "ยับ", 
+					"สับ", "ผับ", "พับ", "ลับ", "วับ", "หับ", "อับ", "นับ","ดิบ", 
+					"ริบ", "สิบ", "จิบ", "พริบ", "ฉิบ", "ชิบ", "ซิบ","จีบ", "บีบ", 
+					"หีบ", "คีบ", "รีบ", "ถีบ","ชุบ", "ซุบ", "ทุบ", "บุบ", "ผุบ"
+                ],
+                'ชุดที่ 2': [
+                    "ยุบ", "หุบ","ตูบ", "ลูบ", "สูบ", "จูบ","แบบ", "แสบ", "แคบ", 
+					"แนบ", "แลบ","งบ", "พบ", "ลบ", "ซบ", "คบ", "ขบ", "ครบ", 
+					"นบ", "อบ", "รบ", "ตบ", "พลบ", "หลบ", "โอบ", "โฉบ",
+					"มอบ", "รอบ", "จอบ", "กอบ", "ชอบ", "ขอบ", "สอบ", "ตอบ",
+					"เติบ", "เปิบ", "เงิบ", "เกิบ", "เอิบ","เรียบ", "เงียบ", "เทียบ", 
+					"เสียบ", "เพียบ", "เกียบ", "เบียบ", "เฉียบ", "เหยียบ","ควบ", "ขวบ", 
+					"อวบ", "รวบ", "จวบ", "บวบ", "ยวบ", "เก็บ", "เวบ","เกือบ", "เคลือบ", "เหลือบ"
+                ]
+            },
+            'แม่กม': [
+                    "ยิ้ม", "ขิม", "อิ่ม", "ริม", "ชิม", "คีม", "ทีม",
+                    "งาม", "สาม", "ยาม", "ห้าม", "ข้าม", "ล่าม", "ม้าม",
+                    "ซึม", "ทึม", "บึม", "ยืม", "ลืม", "อืม", "ดื่ม",
+                    "มุม", "คุม", "งุ่ม", "อุ้ม", "ทุ่ม", "ตูม", "บูม",
+                    "เค็ม", "เต็ม", "เล็ม", "เกม", "เล่ม", "เข็ม",
+                    "แถม", "แก้ม", "แฟ้ม", "แจ่ม", "แช่ม",
+                    "โคม", "โฟม", "ขม", "นม", "ชม", "ต้ม", "ส้ม",
+                    "ยอม", "ตอม", "จอม", "ขอม", "ผอม",
+                    "เติม", "เจิม", "เดิม", "เพิ่ม", "เริ่ม",
+                    "เทียม", "เตี้ยม", "เยี่ยม", "เหี้ยม", "เสียม", 
+                    "สวม", "รวม", "นวม", "บวม", "อ่วม"
+                    ],
+            'แม่กน': {
+                'ชุดที่ 1': [
+                    "ขัน", "ปัน", "หัน", "คัน", "ฉัน", "ชัน", "ถัน", "นัน", "รัน", "ล้าน", "สั่น", "ส้าน", 
+					"บัน", "ผัน", "ยัน", "วัน", "จัน", "ฟัน", "มัน", "อัน","พาน", 
+					"หาน", "อาน", "นาน", "ปาน", "ทาน", "นาน", "ชาน", "จาน", "ลาน", 
+					"งาน", "ขาน", "กาน", "คาน", "ยาน", "วาน", "สาน", "บาน", 
+					"ตาน", "ต้าน", "ถ่าน","หิน", "กิน", "ดิน", "บิน", "พิน", "ริน", "ติน", "อิน",
+					"ลิ้น", "สิน", "ขิ่น", "ชิน", "ชิ้น",  "ปืน", "จีน", "ตีน","ทุน", 
+					"ปูน", "คูน", "นูน", "อุ่น", "วุ่น", "นุ่น", "กุน", "ขุน", "คุน"
+                ],
+                'ชุดที่ 2': [
+                    "ฉุน", "มึน", "บึน", "ฟื้น", "ปืน", "ตื่น", "ชื่น", "ฝืน", "ยืน", "เป็น", "เย็น", 
+					"เซ็น", "เช่น", "เล่น", "เด่น", "เน้น","แคน", "แลน", "แขน", "ขึ้น", 
+					"แผน", "แหน", "แน่น", "แว่น","คน", "กัน", "ฝน", "พ่น", "โยน", 
+					"โดน", "โน้น","เดิน", "เกิน", "เงิน", "เนิน", "เขิน","วอน", "สอน", 
+					"ทอน", "งอน", "ช้อน", "ย้อน", "ร้อน","เรียน", "เขียน", "เพียน", 
+					"เทียน", "เมี่ยน", "เวียน", "เสียน","เดือน", "เตือน", "เยือน", "เพื่อน", 
+					"เขื่อน", "เปื้อน", "เรือน","กวน", "รวน", "ชวน", "ป่วน", "ด่วน", "ล้วน", "ถ้วน"
+                ]
+            },
+            'แม่เกย': [
+                "คุย", "ลุย", "ปุ๋ย", "ขุย", "ฉุย", "ตุย", "ทุย", "ปุย",
+                "กาย", "อาย", "สาย", "ฝาย", "ขาย", "นาย", "ตาย", "คาย", 
+                "ฉาย", "ชาย", "ข่าย", "ค่าย", "ด้าย", "ต่าย", "ถ่าย", 
+                "ทาย", "ท้าย", "ร้าย", "ส่าย", "หาย", "ถอย", "พลอย", "สอย",
+                "ดอย", "ลอย", "รอย", "คอย", "หอย", "ต่อย", "อ้อย",
+                "บ๊วย", "ถ้วย", "มวย", "ช่วย", "สวย", "ป่วย", "หวย",
+                "โกย", "โดย", "โชย", "โหย", "โวย", "โอย", "โรย",
+                "เนย", "เตย", "เลย", "เคย", "เฉย", "เชย", "เอย", "เงย",
+                "เลื่อย", "เฉื่อย", "เรื่อย", "เมื่อย", "เปื่อย", "เดือย", "ออย"
+            ],
+            'แม่เกอว': [
+                "กาว", "ขาว", "คาว", "คราว", "งาว", "ชาว", "ดาว", "ตาว", "ทาว", "นาว",
+                "พราว", "ยาว", "ราว", "ร้าว", "ลาว", "วาว", "ว่าว", "สาว", "หาว", "ห้าว",
+                "กิว", "คิ้ว", "งิ้ว", "จิ๋ว", "ฉิว", "ชิว", "นิ้ว", "ผิว", "ริ้ว", "สิว", 
+                "หิว", "เอว", "เลว", "เหว", "แกว", "แจว", "แนว", "แมว", "แล้ว", "แห้ว"
+            ],
+            'แม่กง': [
+                "กง", "กาง", "กง", "คาง", "งง", "จอง", "ซุง", "ดึง", "ตอง", "ทาง", 
+                "ทอง", "ธง", "นาง", "บาง", "พุง", "ฟาง", "มอง", "ยาง", "รอง", "ลุง", 
+                "วง", "สาง", "หาง", "อ่าง", "ฮง",
+                "ก้าง", "กิ่ง", "กุ้ง", "เก่ง", "แกง", "ข้าง", "ขี่ง", "ค้าง", "จ้าง", "ช่อง", 
+                "ช้าง", "โด่ง", "แต่ง", "น้อง", "นั่ง", "บั้ง", "บุ้ง", "ปิ้ง", "ผึ้ง", "ย่าง", 
+                "ร้อง", "ล่าง", "ว่าง", "ส่อง", "ห้อง"
+            ]
+        };
+
+        let currentPattern = '';
+        let currentWords = [];
+        let currentWordIndex = 0;
+        let currentSetName = '';
+
+        function showSubMenu(pattern) {
+            currentPattern = pattern;
+            const data = wordDatabase[pattern];
+            
+            // Check if pattern has sub-sets (object) or is a single array
+            if (Array.isArray(data)) {
+                // Single array, start game directly
+                startGame(pattern, null);
+            } else {
+                // Object with sub-sets, show sub-menu
+                document.getElementById('submenuTitle').textContent = pattern;
+                const submenuGrid = document.getElementById('submenuGrid');
+                submenuGrid.innerHTML = '';
+                
+                for (const setName in data) {
+                    const btn = document.createElement('button');
+                    btn.className = 'pattern-btn';
+                    btn.textContent = setName;
+                    btn.onclick = () => startGame(pattern, setName);
+                    submenuGrid.appendChild(btn);
+                }
+                
+                document.getElementById('menuPage').style.display = 'none';
+                document.getElementById('submenuPage').style.display = 'block';
+            }
+        }
+
+        function startGame(pattern, setName) {
+            currentPattern = pattern;
+            currentSetName = setName;
+            
+            let words;
+            if (setName) {
+                words = [...wordDatabase[pattern][setName]];
+                document.getElementById('patternTitle').textContent = `${pattern} - ${setName}`;
+            } else {
+                words = [...wordDatabase[pattern]];
+                document.getElementById('patternTitle').textContent = pattern;
+            }
+            
+            currentWords = words;
+            currentWordIndex = 0;
+
+            // Shuffle words
+            shuffleArray(currentWords);
+
+            // Update UI
+            document.getElementById('wordText').textContent = currentWords[0];
+
+            // Show game page, hide menu and submenu
+            document.getElementById('menuPage').style.display = 'none';
+            document.getElementById('submenuPage').style.display = 'none';
+            document.getElementById('gamePage').style.display = 'block';
+
+            // Add bounce animation
+            animateWord();
+        }
+
+        function nextWord() {
+            currentWordIndex++;
+
+            if (currentWordIndex >= currentWords.length) {
+                // Reshuffle and start over
+                currentWordIndex = 0;
+                shuffleArray(currentWords);
+            }
+
+            document.getElementById('wordText').textContent = currentWords[currentWordIndex];
+            animateWord();
+        }
+
+        function prevWord() {
+            currentWordIndex--;
+
+            if (currentWordIndex < 0) {
+                // Go to last word
+                currentWordIndex = currentWords.length - 1;
+            }
+
+            document.getElementById('wordText').textContent = currentWords[currentWordIndex];
+            animateWord();
+        }
+
+        function speakWord() {
+            const word = document.getElementById('wordText').textContent;
+            
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'th-TH';
+                utterance.rate = 0.8; // Slightly slower for better clarity
+                utterance.pitch = 1;
+                
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('เบราว์เซอร์ของคุณไม่รองรับการอ่านเสียง');
+            }
+        }
+
+        function goBack() {
+            document.getElementById('gamePage').style.display = 'none';
+            
+            // If we came from a sub-menu, go back to sub-menu
+            if (currentSetName) {
+                document.getElementById('submenuPage').style.display = 'block';
+            } else {
+                document.getElementById('menuPage').style.display = 'block';
+            }
+        }
+
+        function goBackToMenu() {
+            document.getElementById('submenuPage').style.display = 'none';
+            document.getElementById('menuPage').style.display = 'block';
+        }
+
+        function animateWord() {
+            const wordText = document.getElementById('wordText');
+            wordText.classList.remove('bounce');
+
+            // Trigger reflow to restart animation
+            void wordText.offsetWidth;
+
+            wordText.classList.add('bounce');
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+    </script>
+</body>
+
+</html>
